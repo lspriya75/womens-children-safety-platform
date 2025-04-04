@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Women's and Children's Safety Support Platform</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <nav class="nav-container">
+        <div class="nav-links">
+            <div class="logo">
+                <h1>Women's Safety & Support</h1>
+            </div>
+            <div class="nav-buttons">
+                <a href="{{ url_for('login_page') }}" class="nav-link">Login</a>
+                <a href="{{ url_for('register_page') }}" class="nav-link">Register</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="home-container">
+        <div class="hero-section">
+            <h1>Women's and Children's Safety Support</h1>
+            <p>Join our community for resources, counseling, and a network of support</p>
+            <div class="cta-buttons">
+                <a href="{{ url_for('register_page') }}" class="cta-button primary">Get Started</a>
+                <a href="#features" class="cta-button secondary">Learn More</a>
+            </div>
+        </div>
+
+        <section id="features" class="features-section">
+            <h2>Our Features</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <i class="fas fa-comments"></i>
+                    <h3>24/7 Counseling</h3>
+                    <p>Access professional counseling support whenever you need it</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-shield-alt"></i>
+                    <h3>Safety Tips</h3>
+                    <p>Learn essential safety measures and emergency protocols</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-users"></i>
+                    <h3>Community Support</h3>
+                    <p>Connect with others in a safe and supportive environment</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-gamepad"></i>
+                    <h3>Interactive Games</h3>
+                    <p>Learn through engaging safety awareness games</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="testimonials-section">
+            <h2>What Our Community Says</h2>
+            <div class="testimonials-grid">
+                <div class="testimonial-card">
+                    <p>"This platform has been a lifesaver. The counseling support is incredible."</p>
+                    <cite>- Sarah M.</cite>
+                </div>
+                <div class="testimonial-card">
+                    <p>"The safety tips are practical and easy to follow. I feel more confident now."</p>
+                    <cite>- Priya R.</cite>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Contact Us</h3>
+                <p>Email: support@womensafety.com</p>
+                <p>Emergency: 911</p>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <a href="#features">Features</a>
+                <a href="{{ url_for('login_page') }}">Login</a>
+                <a href="{{ url_for('register_page') }}">Register</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 Women's and Children's Safety Support Platform. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>

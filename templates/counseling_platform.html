@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Counseling Platform - Women's and Children's Safety Support</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script src="https://cdn.socket.io/4.0.0/socket.io.min.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="nav-container">
+        <div class="nav-links">
+            <div class="nav-brand">
+                <h1>Women's and Children's Safety Support</h1>
+            </div>
+            <div class="nav-menu">
+                <a href="{{ url_for('dashboard') }}">
+                    <i class="fas fa-home"></i> Dashboard
+                </a>
+                <a href="{{ url_for('counseling_platform') }}" class="active">
+                    <i class="fas fa-comments"></i> Counseling
+                </a>
+                <a href="{{ url_for('safety_tips') }}">
+                    <i class="fas fa-shield-alt"></i> Safety Tips
+                </a>
+                <a href="{{ url_for('games') }}">
+                    <i class="fas fa-gamepad"></i> Games
+                </a>
+                <div class="nav-profile">
+                    <span>Welcome, {{ username }}</span>
+                    <a href="{{ url_for('logout') }}" class="logout-btn">
+                        <i class="fas fa-sign-out-alt"></i> Logout
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="counseling-container">
+        <div class="chat-interface">
+            <div class="chat-sidebar">
+                <div class="sidebar-header">
+                    <h3>Support Topics</h3>
+                </div>
+                <div class="topic-list">
+                    <button class="topic-btn active" data-topic="general">
+                        <i class="fas fa-comment"></i> General Support
+                    </button>
+                    <button class="topic-btn" data-topic="emergency">
+                        <i class="fas fa-exclamation-circle"></i> Emergency Help
+                    </button>
+                    <button class="topic-btn" data-topic="mental">
+                        <i class="fas fa-brain"></i> Mental Wellness
+                    </button>
+                    <button class="topic-btn" data-topic="safety">
+                        <i class="fas fa-shield-alt"></i> Safety Planning
+                    </button>
+                    <button class="topic-btn" data-topic="resources">
+                        <i class="fas fa-book"></i> Resources
+                    </button>
+                </div>
+                <div class="sidebar-footer">
+                    <p><i class="fas fa-phone"></i> Emergency: 911</p>
+                    <p><i class="fas fa-headset"></i> Helpline: 1-800-799-SAFE</p>
+                </div>
+            </div>
+            
+            <div class="chat-main">
+                <div class="chat-header">
+                    <div class="chat-header-info">
+                        <i class="fas fa-robot"></i>
+                        <div>
+                            <h3>Support Assistant</h3>
+                            <span class="status">Online</span>
+                        </div>
+                    </div>
+                    <div class="chat-header-actions">
+                        <button class="clear-chat" title="Clear Chat">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="chat-messages" id="chat-messages">
+                    <div class="message bot-message welcome-message">
+                        <div class="message-content">
+                            <p>Hello {{ username }}, I'm here to support you. How can I help you today?</p>
+                            <div class="quick-replies">
+                                <button>I need emergency help</button>
+                                <button>I'm feeling anxious</button>
+                                <button>I need safety advice</button>
+                                <button>Show me resources</button>
+                            </div>
+                        </div>
+                        <span class="message-time">Just now</span>
+                    </div>
+                </div>
+                
+                <div class="chat-input-area">
+                    <div class="input-wrapper">
+                        <textarea id="chatInput" placeholder="Type your message here..." rows="1"></textarea>
+                        <div class="input-actions">
+                            <button class="emoji-btn" title="Add Emoji">
+                                <i class="far fa-smile"></i>
+                            </button>
+                            <button class="send-btn" onclick="sendMessage()">
+                                <i class="fas fa-paper-plane"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="typing-indicator">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="{{ url_for('static', filename='js/counseling.js') }}"></script>
+</body>
+</html>

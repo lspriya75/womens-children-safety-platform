@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Main page</title>
+    <script src="https://cdn.socket.io/4.0.0/socket.io.min.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
+    <!-- <script src="{{ url_for('static', filename='script.js') }}"></script> -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <style>
+        /* General Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+
+        /* Navbar Styling */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #2C3E50; /* Elegant Dark Blue */
+            padding: 15px 20px;
+        }
+
+        .navbar h1 {
+            color: #ECF0F1; /* Light Text */
+            font-size: 24px;
+        }
+
+        .nav-buttons {
+            display: flex;
+            gap: 15px;
+        }
+
+        .nav-buttons button {
+            background-color: #3498DB; /* Stylish Blue */
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+            font-size: 16px;
+        }
+
+        .nav-buttons button:hover {
+            background-color: #2980B9; /* Darker Blue */
+        }
+
+    </style>
+</head>
+<body>
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+
+
+    <nav class="navbar">
+        <h1>Hi {{ username }}!</h1>
+        <div class="nav-buttons">
+            <a href="{{ url_for('homepage') }}"><button>Logout</button></a>
+            <!-- <button>Sign Up</button> -->
+        </div>
+    </nav><br><br><br><br><br><br><br><br>
+
+        <!-- AI Chatbot -->
+        <div id="chatbot" align="center">
+            <input type="text" id="chatInput" placeholder="Ask something...">
+            <button onclick="sendMessage()">Ask</button><br>
+            <br><p id="chatResponse"></p>
+        </div>
+
+</body>
+</html>

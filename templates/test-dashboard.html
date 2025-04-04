@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Women's and Children's Safety Support Platform</title>
+    
+    <!-- Fonts and Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="nav-container">
+        <div class="nav-links">
+            <div class="nav-brand">
+                <h1>Women's and Children's Safety Support</h1>
+            </div>
+            <div class="nav-menu">
+                <a href="{{ url_for('dashboard') }}" class="active">
+                    <i class="fas fa-home"></i> Dashboard
+                </a>
+                <a href="{{ url_for('counseling_platform') }}">
+                    <i class="fas fa-comments"></i> Counseling
+                </a>
+                <a href="{{ url_for('safety_tips') }}">
+                    <i class="fas fa-shield-alt"></i> Safety Tips
+                </a>
+                <div class="nav-profile">
+                    <span>Welcome, {{ username }}</span>
+                    <a href="{{ url_for('logout') }}" class="logout-btn">
+                        <i class="fas fa-sign-out-alt"></i> Logout
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="dashboard-container">
+        <div class="dashboard-header">
+            <h1>Welcome to Your Dashboard</h1>
+            <p>Access all our features to stay safe and supported</p>
+        </div>
+
+        <div class="dashboard-grid">
+            <!-- Counseling Platform Card -->
+            <a href="{{ url_for('counseling_platform') }}" class="dashboard-card counseling">
+                <div class="card-icon">
+                    <i class="fas fa-comments"></i>
+                </div>
+                <div class="card-content">
+                    <h3>Counseling Platform</h3>
+                    <p>Connect with our AI counselor for immediate support and guidance</p>
+                </div>
+                <div class="card-action">
+                    <span>Access Now</span>
+                    <i class="fas fa-arrow-right"></i>
+                </div>
+            </a>
+
+            <!-- Safety Tips Card -->
+            <a href="{{ url_for('safety_tips') }}" class="dashboard-card safety">
+                <div class="card-icon">
+                    <i class="fas fa-shield-alt"></i>
+                </div>
+                <div class="card-content">
+                    <h3>Safety Tips</h3>
+                    <p>Learn essential safety measures and emergency protocols</p>
+                </div>
+                <div class="card-action">
+                    <span>View Tips</span>
+                    <i class="fas fa-arrow-right"></i>
+                </div>
+            </a>
+
+            <!-- Games Card -->
+            <a href="{{ url_for('games') }}" class="dashboard-card games">
+                <div class="card-icon">
+                    <i class="fas fa-gamepad"></i>
+                </div>
+                <div class="card-content">
+                    <h3>Interactive Games</h3>
+                    <p>Learn safety awareness through engaging educational games</p>
+                </div>
+                <div class="card-action">
+                    <span>Play Now</span>
+                    <i class="fas fa-arrow-right"></i>
+                </div>
+            </a>
+        </div>
+
+        <!-- Quick Access Section -->
+        <div class="quick-access-section">
+            <h2>Quick Access</h2>
+            <div class="quick-access-grid">
+                <div class="quick-access-card">
+                    <i class="fas fa-phone"></i>
+                    <h4>Emergency Contacts</h4>
+                    <p>Police: 100</p>
+                    <p>Women's Helpline: 1091</p>
+                    <p>Ambulance: 102</p>
+                </div>
+                <div class="quick-access-card">
+                    <i class="fas fa-book"></i>
+                    <h4>Resources</h4>
+                    <ul>
+                        <li>Safety Guidelines</li>
+                        <li>Legal Rights</li>
+                        <li>Support Groups</li>
+                    </ul>
+                </div>
+                <div class="quick-access-card">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <h4>Safe Locations</h4>
+                    <ul>
+                        <li>Police Stations</li>
+                        <li>Women's Centers</li>
+                        <li>Safe Shelters</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Contact Us</h3>
+                <p>Email: support@womensafety.com</p>
+                <p>Emergency: 911</p>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <a href="{{ url_for('counseling_platform') }}">Counseling</a>
+                <a href="{{ url_for('safety_tips') }}">Safety Tips</a>
+                <a href="{{ url_for('games') }}">Games</a>
+            </div>
+            <div class="footer-section">
+                <h3>Resources</h3>
+                <a href="#">Safety Guidelines</a>
+                <a href="#">Emergency Contacts</a>
+                <a href="#">Support Groups</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 Women's and Children's Safety Support Platform. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Elegant Navbar</title>
+    <style>
+        /* General Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+
+        /* Navbar Styling */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #2C3E50; /* Elegant Dark Blue */
+            padding: 15px 20px;
+        }
+
+        .navbar h1 {
+            color: #ECF0F1; /* Light Text */
+            font-size: 24px;
+        }
+
+        .nav-buttons {
+            display: flex;
+            gap: 15px;
+        }
+
+        .nav-buttons button {
+            background-color: #3498DB; /* Stylish Blue */
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+            font-size: 16px;
+        }
+
+        .nav-buttons button:hover {
+            background-color: #2980B9; /* Darker Blue */
+        }
+
+    </style>
+</head>
+<body>
+
+    <nav class="navbar">
+        <h1>Hi, user</h1>
+        <div class="nav-buttons">
+            <button>Login</button>
+            <button>Sign Up</button>
+        </div>
+    </nav>
+
+</body>
+</html>
