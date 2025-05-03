@@ -394,7 +394,7 @@ img {
   }
   
   .nav-links {
-    flex-direction: column;
+  flex-direction: column;
     gap: 1rem;
   }
 
@@ -445,7 +445,7 @@ img {
 .cta-buttons {
     display: flex;
     gap: 1rem;
-    justify-content: center;
+  justify-content: center;
     margin-top: 2rem;
 }
 
@@ -625,7 +625,7 @@ img {
 .nav-links {
     display: flex;
     justify-content: space-between;
-    align-items: center;
+  align-items: center;
     max-width: 1400px;
     margin: 0 auto;
 }
@@ -779,7 +779,7 @@ img {
 }
 
 .quick-access-section h2 {
-    text-align: center;
+  text-align: center;
     color: var(--text-color);
     margin-bottom: 2rem;
     font-size: 2rem;
@@ -802,7 +802,7 @@ img {
 }
 
 .quick-access-card i {
-    font-size: 2rem;
+  font-size: 2rem;
     color: var(--primary-color);
     margin-bottom: 1rem;
 }
@@ -810,7 +810,7 @@ img {
 .quick-access-card h4 {
     color: var(--text-color);
     margin-bottom: 1rem;
-    font-size: 1.2rem;
+  font-size: 1.2rem;
 }
 
 .quick-access-card p, .quick-access-card li {
@@ -896,12 +896,12 @@ img {
 
 .game-button {
     background-color: #4a90e2;
-    color: white;
+  color: white;
     border: none;
     padding: 0.8rem 1.5rem;
     border-radius: 25px;
     font-weight: 600;
-    cursor: pointer;
+  cursor: pointer;
     transition: background-color 0.3s ease;
 }
 

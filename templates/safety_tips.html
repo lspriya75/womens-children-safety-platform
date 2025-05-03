@@ -17,15 +17,15 @@
             height: 100vh;
         }
         .navbar {
-            width: 100vw; /* Full width of the viewport */
-            box-sizing: border-box; /* Prevents overflow */
+            width: 100vw;
+            box-sizing: border-box;
             background: #007bff;
             color: white;
             display: flex;
             justify-content: space-between;
             align-items: center;
             padding: 7px 14px;
-            position: fixed; /* Keeps it at the top */
+            position: fixed;
             top: 0;
             left: 0;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
@@ -54,7 +54,7 @@
             background: white;
             border-radius: 10px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            margin-top: 80px; /* Prevents overlap with navbar */
+            margin-top: 80px;
         }
         #responseBox {
             margin-top: 20px;
@@ -83,17 +83,11 @@
     </style>
 </head>
 <body>
-
-      <!-- Navbar -->
-  <div class="navbar">
-    <div class="username">Hi, {{username}}</div>
-    <a href="{{ url_for('homepage') }}"><button class="logout">Logout</button></a>
-  </div>
-
-    <!-- <div class="navbar">
-        <div class="user">User</div>
-        <button class="logout" onclick="logout()">Logout</button>
-    </div> -->
+    <!-- Navbar -->
+    <div class="navbar">
+        <div class="user">Welcome, {{ username }}</div>
+        <a href="{{ url_for('logout') }}"><button class="logout">Logout</button></a>
+    </div>
 
     <div class="container">
         <h2>Click for Women's and Children's Safety Tips</h2>
@@ -104,20 +98,14 @@
     <script>
         async function getRandomResponse() {
             try {
-                const response = await fetch("http://127.0.0.1:5000/get_safety_tip"); 
+                const response = await fetch("{{ url_for('get_safety_tip') }}");
                 const data = await response.json();
                 document.getElementById("responseBox").textContent = data.response;
             } catch (error) {
                 console.error("Error fetching safety tips:", error);
+                document.getElementById("responseBox").textContent = "Error loading safety tip. Please try again.";
             }
         }
-
-        function logout() {
-            alert("Logging out...");
-            // Redirect or perform logout logic here
-            window.location.href = "login.html"; // Redirect to login page
-        }
     </script>
-
 </body>
 </html>

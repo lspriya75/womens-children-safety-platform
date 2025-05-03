@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Emergency Map - Women's and Children's Safety Support Platform</title>
+    
+    <!-- Fonts and Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <!-- Leaflet Geocoder CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.css" />
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        #map {
+            height: 70vh;
+            width: 100%;
+            border-radius: 10px;
+            margin: 20px 0;
+            z-index: 1;
+        }
+        .leaflet-control-geocoder {
+            z-index: 1000;
+        }
+        .leaflet-control-geocoder-form input {
+            width: 300px;
+            padding: 8px;
+            font-size: 14px;
+        }
+        .emergency-controls {
+            display: flex;
+            gap: 10px;
+            margin: 20px 0;
+        }
+        .emergency-button {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .find-police {
+            background-color: #4CAF50;
+            color: white;
+        }
+        .find-hospital {
+            background-color: #f44336;
+            color: white;
+        }
+        .find-shelter {
+            background-color: #2196F3;
+            color: white;
+        }
+        .location-info {
+            background-color: #f8f9fa;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 10px 0;
+        }
+        #loading-indicator {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(255,255,255,0.9);
+            padding: 20px;
+            border-radius: 5px;
+            z-index: 1000;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="nav-container">
+        <div class="nav-links">
+            <div class="nav-brand">
+                <h1>Women's and Children's Safety Support Platform</h1>
+            </div>
+            <div class="nav-menu">
+                <a href="{{ url_for('dashboard') }}">
+                    <i class="fas fa-home"></i> Dashboard
+                </a>
+                <a href="{{ url_for('counseling_platform') }}">
+                    <i class="fas fa-comments"></i> Counseling
+                </a>
+                <a href="{{ url_for('safety_tips') }}">
+                    <i class="fas fa-shield-alt"></i> Safety Tips
+                </a>
+                <a href="{{ url_for('games') }}">
+                    <i class="fas fa-gamepad"></i> Games
+                </a>
+                <div class="nav-profile">
+                    <span>Welcome, {{ username }}</span>
+                    <a href="{{ url_for('logout') }}" class="logout-btn">
+                        <i class="fas fa-sign-out-alt"></i> Logout
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="dashboard-container">
+        <div class="dashboard-header">
+            <h1>Emergency Map</h1>
+            <p>Find nearby emergency services and safe locations</p>
+        </div>
+
+        <div class="emergency-controls">
+            <button class="emergency-button find-police" onclick="findNearbyPlaces('police')">
+                <i class="fas fa-shield-alt"></i> Find Police Stations
+            </button>
+            <button class="emergency-button find-hospital" onclick="findNearbyPlaces('hospital')">
+                <i class="fas fa-hospital"></i> Find Hospitals
+            </button>
+            <button class="emergency-button find-shelter" onclick="findNearbyPlaces('shelter')">
+                <i class="fas fa-home"></i> Find Safe Shelters
+            </button>
+        </div>
+
+        <div class="location-info" id="location-info">
+            <p>Your current location will appear here</p>
+        </div>
+
+        <!-- Location Services Instructions -->
+        <div id="location-instructions" style="display: none; text-align: center; padding: 20px; background: #f8f9fa; border-radius: 5px; margin: 20px 0;">
+            <h3>Enable Location Services</h3>
+            <p>This map needs access to your location. Here's how to enable it:</p>
+            
+            <div style="text-align: left; max-width: 500px; margin: 0 auto;">
+                <h4>For Chrome:</h4>
+                <ol>
+                    <li>Click the lock/info icon in the address bar</li>
+                    <li>Click on "Site settings"</li>
+                    <li>Set "Location" to "Allow"</li>
+                    <li>Refresh the page</li>
+                </ol>
+                
+                <h4>For Safari:</h4>
+                <ol>
+                    <li>Click Safari > Preferences</li>
+                    <li>Go to Privacy tab</li>
+                    <li>Uncheck "Prevent cross-site tracking" (if checked)</li>
+                    <li>Under Website tracking, click "Details"</li>
+                    <li>Find this website and select "Allow"</li>
+                </ol>
+            </div>
+            
+            <button onclick="requestLocation()" class="emergency-button find-police" style="margin-top: 20px;">
+                Try Again
+            </button>
+        </div>
+
+        <div id="map"></div>
+        <div id="loading-indicator">Loading...</div>
+
+        <div class="emergency-contacts">
+            <h3>Emergency Contacts</h3>
+            <div class="emergency-contact">
+                <i class="fas fa-phone-alt"></i>
+                <span>Police Emergency: 100</span>
+            </div>
+            <div class="emergency-contact">
+                <i class="fas fa-ambulance"></i>
+                <span>Ambulance: 108</span>
+            </div>
+            <div class="emergency-contact">
+                <i class="fas fa-fire-extinguisher"></i>
+                <span>Fire Department: 101</span>
+            </div>
+            <div class="emergency-contact">
+                <i class="fas fa-phone-alt"></i>
+                <span>Women's Helpline: 1091</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Contact Us</h3>
+                <p>Email: support@womensafety.com</p>
+                <p>Emergency: 911</p>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <a href="{{ url_for('counseling_platform') }}">Counseling</a>
+                <a href="{{ url_for('safety_tips') }}">Safety Tips</a>
+                <a href="{{ url_for('games') }}">Games</a>
+            </div>
+            <div class="footer-section">
+                <h3>Resources</h3>
+                <a href="#">Safety Guidelines</a>
+                <a href="#">Emergency Contacts</a>
+                <a href="#">Support Groups</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 Women's and Children's Safety Support Platform. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Leaflet JS -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <!-- Leaflet Geocoder JS -->
+    <script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
+    
+    <!-- Load our map implementation -->
+    <script src="{{ url_for('static', filename='js/emergency_map.js') }}"></script>
+
+    <!-- Add debugging info -->
+    <div id="debug-info" style="display: none;">
+        <p>Debug Information:</p>
+        <p>API Key Length: {{ google_maps_api_key|length if google_maps_api_key else 'No API key' }}</p>
+        <p>Current URL: <script>document.write(window.location.href)</script></p>
+    </div>
+</body>
+</html> 

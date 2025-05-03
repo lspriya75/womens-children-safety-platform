@@ -59,11 +59,28 @@ const safetyQuizQuestions = [
 let currentQuestion = 0;
 let score = 0;
 let quizStarted = false;
+let currentQuizQuestions = [];
+
+function shuffleArray(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+    }
+    return array;
+}
+
+function selectRandomQuestions() {
+    // Create a copy of all questions and shuffle them
+    const shuffledQuestions = shuffleArray([...safetyQuizQuestions]);
+    // Take the first 5 questions
+    currentQuizQuestions = shuffledQuestions.slice(0, 5);
+}
 
 function startQuiz() {
     quizStarted = true;
     currentQuestion = 0;
     score = 0;
+    selectRandomQuestions(); // Select new random questions each time
     displayQuestion();
     document.getElementById('quiz-start-section').style.display = 'none';
     document.getElementById('quiz-question-section').style.display = 'block';
@@ -71,7 +88,7 @@ function startQuiz() {
 }
 
 function displayQuestion() {
-    const questionData = safetyQuizQuestions[currentQuestion];
+    const questionData = currentQuizQuestions[currentQuestion];
     document.getElementById('question-text').textContent = questionData.question;
     const optionsContainer = document.getElementById('options-container');
     optionsContainer.innerHTML = '';
@@ -88,7 +105,7 @@ function displayQuestion() {
 }
 
 function checkAnswer(selectedIndex) {
-    const questionData = safetyQuizQuestions[currentQuestion];
+    const questionData = currentQuizQuestions[currentQuestion];
     const options = document.querySelectorAll('.quiz-option');
     
     options.forEach(option => option.disabled = true);
@@ -112,7 +129,7 @@ function checkAnswer(selectedIndex) {
 
 function nextQuestion() {
     currentQuestion++;
-    if (currentQuestion < safetyQuizQuestions.length) {
+    if (currentQuestion < currentQuizQuestions.length) {
         displayQuestion();
     } else {
         showResults();
@@ -123,9 +140,9 @@ function showResults() {
     document.getElementById('quiz-question-section').style.display = 'none';
     document.getElementById('quiz-results-section').style.display = 'block';
     
-    const percentage = (score / safetyQuizQuestions.length) * 100;
+    const percentage = (score / currentQuizQuestions.length) * 100;
     document.getElementById('quiz-score').textContent = 
-        `You scored ${score} out of ${safetyQuizQuestions.length} (${percentage}%)`;
+        `You scored ${score} out of ${currentQuizQuestions.length} (${percentage}%)`;
     
     let message = '';
     if (percentage === 100) {
@@ -150,5 +167,16 @@ function restartQuiz() {
 
 function updateProgress() {
     const progress = document.getElementById('quiz-progress');
-    progress.textContent = `Question ${currentQuestion + 1} of ${safetyQuizQuestions.length}`;
+    progress.textContent = `Question ${currentQuestion + 1} of ${currentQuizQuestions.length}`;
+}
+
+function closeQuiz() {
+    document.getElementById('quiz-container').style.display = 'none';
+}
+
+function openQuiz() {
+    document.getElementById('quiz-container').style.display = 'block';
+    document.getElementById('quiz-start-section').style.display = 'block';
+    document.getElementById('quiz-question-section').style.display = 'none';
+    document.getElementById('quiz-results-section').style.display = 'none';
 } 

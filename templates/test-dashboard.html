@@ -17,7 +17,7 @@
     <nav class="nav-container">
         <div class="nav-links">
             <div class="nav-brand">
-                <h1>Women's and Children's Safety Support</h1>
+                <h1>Women's and Children's Safety Support Platform</h1>
             </div>
             <div class="nav-menu">
                 <a href="{{ url_for('dashboard') }}" class="active">
@@ -28,6 +28,12 @@
                 </a>
                 <a href="{{ url_for('safety_tips') }}">
                     <i class="fas fa-shield-alt"></i> Safety Tips
+                </a>
+                <a href="{{ url_for('games') }}">
+                    <i class="fas fa-gamepad"></i> Games
+                </a>
+                <a href="{{ url_for('emergency_map') }}">
+                    <i class="fas fa-map-marker-alt"></i> Emergency Map
                 </a>
                 <div class="nav-profile">
                     <span>Welcome, {{ username }}</span>
